@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}Genres{% endblock title %}
+{% block genre %}- {{ genre }}{% endblock genre %}
+
+{% block content %}
+
+<!-- Portfolio -->
+<section class="page-section" id="portfolio" style="padding-top: 120px; padding-left:150px;width: 1250px;">
+  <div class="bg-light container">
+    <div class="row py-4">
+    {% for movie in movies %}
+      <div class="col-md-4 col-sm-6 portfolio-item">
+        <a class="portfolio-link">
+          <div class="portfolio-hover">
+            <div class="portfolio-hover-content">
+                <div class="dropdown">
+                  <!-- <button class="dropbtn">Preview</button> -->
+                  <div class="dropdown-content" style="width: 300px;">
+                    {% if movie.summary != None %}
+                      <h6>Summary:</h6>
+                      <p class="dropdown-content" style="width: 250px;">{{ movie.summary }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+            </div>
+          </div>
+          {% if movie.image != None%}
+            <img class="img-fluid" src="{{ movie.image }}" alt="">
+          {% else %}
+            <img class="img-fluid" src="https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483214317_.png" width="182" height="268" alt="">
+          {% endif %}
+        </a>
+
+        <div class="portfolio-caption">
+          <h4><a href="/movie/{{ movie.id }}">{{ movie.title }}</a></h4>
+        </div>
+      </div>
+    {% endfor %}
+
+<!-- Pagination -->
+    <div class="justify-content-md-center" id="page1" align="center" style="padding-left:450px;">
+        {% if query == '' %}
+          {% if page != 1 %}
+          <a href='?page={{ page -1 }}'> << </a>
+          {% endif %}
+            {% if (page >= (number + 1)//2 + 1) %}
+              <a href="?page=1">1</a>
+              <span>
+                  ...
+              </span>
+              {% if page < page_count - number//2 %}
+                  {% for page_num in range(page + 1 - (number + 1)//2, page + number + 1 - (number + 1)//2 )%}
+                      {% if page_num == page %}
+                          <span>
+                          {{ page_num }}
+                              </span>
+                      {% else %}
+                          <a href='?page={{ page_num }}'>{{ page_num }}</a>
+                      {% endif %}
+                  {% endfor %}
+                  <span>
+                  ...
+                  </span>
+                  <a href='?page={{ page_count }}' >{{ page_count }}</a>
+              {% else %}
+                  {% for page_num in range(page_count - number + 1, page_count + 1) %}
+                      {% if page_num == page %}
+                          <span >
+                              {{ page_num }}
+                              </span>
+                      {% else %}
+                          <a href='?page={{ page_num }}'>{{ page_num }}</a>
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          {% else %}
+              {% for page_num in range(1, number + 1) %}
+                  {% if page_num == page %}
+                      <span >
+                          {{ page_num }}
+                              </span>
+                  {% else %}
+                      <a href='?page={{ page_num }}'>{{ page_num }}</a>
+                  {% endif %}
+              {% endfor %}
+              <span>
+              ...
+              </span>
+              <a href='?page={{ page_count }}'>{{ page_count }}</a>
+          {% endif %}
+          {% if page != page_count %}
+              <a href='?page={{ page + 1 }}' > >> </a>
+          {% endif %}
+      {% else %}
+          {% for page_num in range(1, page_count) %}
+              {% if page_num == page %}
+        <span >{{ page_num }}</span>
+              {% else %}
+                  <a href='?page={{ page_num }}'>{{ page_num }}</a>
+              {% endif %}
+          {% endfor %}
+      {% endif %}
+    </div>
+   </div>
+  </div>
+ </section>
+{% endblock content %}
+

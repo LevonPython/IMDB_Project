@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block header %}
+<h4></h4>
+{% endblock header %}
+
+{% block content %}
+    <nav class="right navbar fixed-top">
+        <div class="container">
+          <div class="navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+              <li class="nav-item">
+                <a class="link-color js-scroll-trigger" href="#cast">Cast</a>
+              </li>
+               <li class="nav-item">
+                <a class="link-color js-scroll-trigger" href="#oscars">Oscars</a>
+              </li>
+              <li class="nav-item">
+                <a class="link-color js-scroll-trigger" href="#details">Details</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!-- Movie Details -->
+
+<section class="page-section" id="portfolio" style="padding-left: 150px;width: 1200px; " >
+  <div class="bg-light container">
+    <div class="row">
+     {% for movie in movies %}
+      <div style="float: left;" class="poster py-4">
+        <h4 style="color:#012758;">{{ movie.title }}&nbsp;&nbsp; &#9733 {{movie.user_score}}</h4>
+          <table><tr>
+             <td style="padding-bottom: 20px;">
+                 {% if movie['image'] != None %}
+                   <img  src="{{ movie['image'] }}">
+                 {% else %}
+                   <img  src="https://m.media-amazon.com/images/G/01/imdb/images/nopicture/
+                   medium/film-3385785534._CB483214317_.png" width="182" height="268">
+                 {% endif %}
+              </td>
+              <td style="padding-left:15px; padding-right:15px;">
+                  <i>{{movie.summary}}</i>
+                  <hr>
+                  <table><tr><td><ul style="list-style-type:none;text-align: right;">
+                      <li>Genres:</li>
+                      <li>Released date:</li>
+                      <li>Duration:</li>
+                      <li>Languages:</li>
+                      <li>Countries:</li>
+                      <li>Production Co:</li>
+                      <li>votes:</li>
+                   </ul></td>
+                   <td><ul style="list-style-type:none;color: #012758;">
+                      <li><i><b>{{ genres}}</b></i></li>
+                      <li><i><b>{{ movie.release_date }}</b></i></li>
+                      <li><i><b>{{ movie.runtime }} min.</b></i></li>
+                      <li><i><b>{{ languages }}</b></i></li>
+                      <li><i><b>{{ country }}</b></i></li>
+                      <li><i><b>{{ company }}</b></i></li>
+                      <li><i>{{movie.user_count}}  &#9786 </i></li>
+                  </ul></td>
+                  </tr></table>
+              </td></tr></table>
+      </div>
+       {% endfor %}
+               <!--director-writer-->
+    <div class="py-2">
+    <table><tr><td style="padding-left:25px;">
+        <b>Director:</b></td>
+        {%for person in other%}
+           {% if person.role == 'director'%}
+             <td style="padding-left:10px;">{{person.name}}</td>
+           {% endif%}
+        {%endfor%}</tr>
+        <tr><td style="padding-left:25px;"><b>Writer:</b></td>
+        {%for person in other%}
+           {% if person.role == 'writer' and loop.index < 6 %}
+              <td style="padding-left:10px;">{{person.name}}</td>
+           {% endif%}
+        {%endfor%}
+    </tr></table>
+                 <hr>
+        <!-- Cast -->
+    <div id="cast" style="padding-left: 50px;"><h2>Cast</h2> </div>
+         <div class="row px-3">
+             {% for actor in cast %}
+                 {% if actor.image != None %}
+                    <div class="col-md-3 col-sm-3 portfolio-item">
+                        <div class="portfolio-hover">
+                            <a href="/name/{{actor.id}}">
+                                <img  src="{{ actor.image }}" style="width: 60%; height: auto;padding:10px;" ></a>
+                        </div>
+                        <div class="portfolio-caption"><h6 style="text-align: left;">
+                            <a href="/name/{{actor.id}}">{{ actor.name }}</a></h6></div>
+                    </div>
+               {%endif  %}
+            {% endfor %}
+          </div>
+        <hr>
+    </div>
+         <div class="row container">
+             <div id="oscars" style="padding-left:20px;color: #012758;">
+                 <h4>Oscars</h4>
+             <table>
+                 {% if oscars == []%}
+                 <span style="padding-left: 50px;">No Oscar</span>
+                 {%else%}
+                     {%for oscar in oscars%}
+                        <tr>
+                            <td style="padding-left: 50px;"> {{oscar.result}} </td>
+                            <td style="padding-left: 30px; padding-right:30px;">{{oscar.award}} </td>
+                            <td> {{oscar.year}} </td>
+                          </tr>
+                     {%endfor%}
+                 {%endif%}
+             </table>
+                  <hr>
+             </div>
+         </div>
+         <div class="row container">
+                <!-- Details -->
+            <div id="details" style="padding:30px;"><h4>Details</h4>
+                {% for movie in movies %}
+                <ul style="list-style-type:none;">
+                    <li>Color: &nbsp;<span style="color: #012758;"><b>{{movie.color}}</b></span></li>
+                    <li>Budget: &nbsp;<span style="color: #012758;"><b>{{movie.budget}}</b></span></li>
+                    <li>Gross USA: &nbsp;<span style="color: #012758;"> <b>{{movie.gross_usa}}</b></span></li>
+                    <li>Cumulative gross world: &nbsp;
+                        <span style="color: #012758;"><b>{{movie.cumulative_worldwide_gross}}</b></span></li>
+                </ul>
+                {%endfor%}
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

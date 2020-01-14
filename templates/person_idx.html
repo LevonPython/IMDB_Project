@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}name{% endblock title %}
+
+
+{% block content %}
+   <nav class="right navbar fixed-top">
+        <div class="container">
+          <div class="navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ml-auto">
+              <li class="nav-item">
+                <a class="link-color js-scroll-trigger" href="#filmography">Filmography</a>
+              </li>
+              <li class="nav-item">
+                <a class="link-color js-scroll-trigger" href="#oscars">Oscars</a>
+              </li>
+             </ul>
+          </div>
+        </div>
+    </nav>
+    <!-- Person Details -->
+<section class="page-section" id="portfolio" style="padding-top: 20px; padding-left:150px;width: 1200px;">
+  <div class="bg-light container">
+      <div class="row">
+          {% for person in persons %}
+    <div style="float: left;" class="poster">
+        <table> <tr>
+           <td>
+              {% if person.image != None %}
+                <img  src="{{ person.image }}" style="padding-right: 20px;">
+              {% else %}
+                <img  src="https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483214317_.png" width="182" height="268">
+              {% endif %}
+           </td>
+           <td style="padding-top: 5px;">
+                <h3 class="intro-text">{{person.name}}
+                    {% if person.rating != None %}
+                        <span> &#9733 {{person.rating}}</span>
+                    {%endif%}
+                </h3>
+               <p class="intro-text" style="font-size: 13px;">Hometown: <i style="font-size: 18px;padding-left:10px;">
+                   {% if person.hometown == None %}
+                   ---
+                   {%else%}
+                   {{person.hometown}}
+                   {%endif%}
+               </i></p>
+               <p class="intro-text" style="font-size: 13px;">Born: <i style="font-size: 18px; padding-left:10px;">{{birthday}}</i></p>
+               <hr>
+                {% if person.acting != None %}
+               <p class="intro-text" style="font-size: 15px;">Actor credits:  <i>{{person.acting}}</i></p>
+                {% endif %}
+               {% if person.director != None %}
+               <p class="intro-text" style="font-size: 15px;">Director credits:  <i>{{person.director}}</i></p>
+                {% endif %}
+                {% if person.writer != None %}
+               <p class="intro-text" style="font-size: 15px;">Writer credits:  <i>{{person.writer}}</i></p>
+                {% endif %}
+           </td>
+      </tr></table>
+        </div>
+          {% endfor %}
+
+
+<div style="float: left; padding-top: 50px; padding-left: 40px;width: 1200px;">
+        <hr>
+    <!-- Filmography -->
+     <div id="filmography"><h4>Filmography</h4>
+
+            <div class="bg-light page-section" style="padding: 10px;">
+              <div class="container">
+                <div class="row">
+                {% for movie in movies %}
+                  <div class="col-md-3 col-sm-3 portfolio-item" >
+                    <a class="portfolio-link">
+
+                      {% if movie.image != None%}
+                        <img class="img-fluid" src="{{ movie.image }}" alt="" style="width: 70%; height: auto;padding:10px;">
+                      {% else %}
+                        <img class="img-fluid" src="https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483214317_.png" width="182" height="268" alt="">
+                      {% endif %}
+                    </a>
+
+                    <div class="portfolio-caption">
+                      <h6 style="text-align: left;"><a href="/movie/{{ movie.movie_id }}">{{ movie.title }}</a></h6>
+                        {% if movie.also_known_as != None%}
+                            <p  style="text-align: left;"> ( {{movie.also_known_as}} )</p>
+                        {% endif %}
+                    </div>
+                  </div>
+                {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+    <hr>
+    <section class="bg-light page-section" style="padding: 20px;">
+      <!-- Oscars -->
+       <div id="oscars" style="color: #012758"><h4>Oscars</h4></div>
+          {% if person_oscar == [] %}
+            No Oscar
+          {%else%}
+        <table>
+        {% for oscar in person_oscar %}
+        <tr>
+            <td> {{oscar.result}} </td>
+            <td style="padding-left: 30px; padding-right:30px;">{{oscar.award}} </td>
+            <td> {{oscar.year}} </td>
+        </tr>
+        {% endfor %}
+     {% endif%}
+    </table>
+</section>
+</div>
+  </div>
+  </div>
+</section>
+{% endblock content %}

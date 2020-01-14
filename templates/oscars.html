@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Oscars{% endblock title %}
+{% block content %}
+
+<nav class="right navbar fixed-top">
+    <div class="container">
+      <div class="navbar-collapse" id="navbarResponsive">
+          <div class="row col-lg-2 right mr-1 pt-4" style="background-color: #001a4d">
+          {% for year in award.keys() %}
+            <ul class="navbar-nav text-uppercase mr-auto">
+              <li class="nav-item">
+                <a class="link-color js-scroll-trigger" href="#{{year}}"  style="color: #fed136;">{{year}}&nbsp; &nbsp;</a>
+              </li>
+            </ul>
+          {% endfor %}
+          </div>
+      </div>
+    </div>
+</nav>
+ <section class="page-section" id="portfolio" style="padding-right:200px;">
+    <div class="bg-light container">
+          <div class="page py-3 px-4">
+            <h1 style="color:#fed136; font-size:40px;">Oscars</h1>
+            {% for year in award.keys() %}
+              <br>
+                <h1 style="color:#012758; font-size:28px;" id="{{year}}">{{year}}</h1>
+                    {% for awards in award[year] %}
+                        <br>
+                        <h2 style="color:#012758; font-size:28px;"> {{awards}}</h2>
+                        <br>
+                        <div class="row">
+                            {% for movie in result['query_movie'] %}
+                                {% if movie['year'] == year %}
+                                    {% if movie['award'] == awards %}
+                            <div class="col-md-2 col-sm-4 portfolio-item">
+                                <div class="portfolio-hover">
+                                    {% if movie['result'] == 'WINNER' %}
+                                    <h6 style="color:#012758;"><i>{{movie['result']}}</i></h6>
+                                    {% else %}
+                                    <h6 class="text-muted"><i>{{movie['result']}}</i></h6>
+                                    {% endif %}
+                                    {% if movie['image'] != None %}
+                                        <a href="/movie/{{movie['movie_id']}}"><img class="img-fluid" src="{{movie['image']}}" style="width:50%; height: auto;"/> </a>
+                                    {% else %}
+                                        <a href="/movie/{{movie['movie_id']}}"><img class="img-fluid" src="https://m.media-amazon.com/images/G/01/imdb/images/nopicture/medium/film-3385785534._CB483214317_.png" width="182" height="268" alt=""/> </a>
+
+                                    {% endif %}
+                                </div>
+                                <div class="portfolio-caption"><h6 style="text-align: left;"><a href="/movie/{{movie['movie_id']}}"style="width:50%; height: auto;">{{movie['title']}}</a></h6>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            {% for person in result['query_person'] %}
+                                {% if person['year'] == year %}
+                                    {% if person['award'] == awards %}
+                                          <div class="col-md-2 col-sm-4 portfolio-item">
+                                <div class="portfolio-hover">
+                                    {% if person['result'] == 'WINNER' %}
+                                    <h6 style="color:#012758;"><i>{{person['result']}}</i></h6>
+                                    {% else %}
+                                    <h6 class="text-muted"><i>{{person['result']}}</i></h6>
+                                    {% endif %}
+                                    {% if person['image'] != None %}
+                                    <a href="/name/{{person['person_id']}}"><img class="img-fluid" src="{{person.image}}" style="width:50%; height: auto;"/> </a>
+                                    {% else %}
+                                        <a href="/name/{{person.person_id}}"><img class="img-fluid" src="https://m.media-amazon.com/images/G/01/IMDbPro/images/default_name._V142442227_UY289_CR46,0,214,317_.png" style="width:50%; height: auto;"/> </a>
+                                    {% endif %}
+                                </div>
+                                <div class="portfolio-caption"><h6 style="text-align: left;"><a href="/name/{{person.person_id}}">{{person.name}}</a></h6>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                            </div>
+                    {% endfor %}
+            {% endfor %}
+        </div>
+     </div>
+ </section>
+{% endblock content %}

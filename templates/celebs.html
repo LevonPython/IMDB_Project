@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!--<h1 style="padding-top: 120px;">{{ max_count }}</h1>-->
+
+{% block search %}
+<!-- Search block -->
+<div class="row mt-2 pt-1 pr-1 h-50" style="background: #001a4d;" >
+<div class="col-md-4 offset-md-8 border-success pt-4" style="background: #001a4d;">
+  <div class="input-group mb-3">
+    <div class="w3-padding w3-xlarge"></div>
+    <form style="padding-top: 120px">
+      <input name='query' class="form-control" placeholder=" Keywords ...... " value='{{ query }}'/>
+      <input type=submit value="Search" />
+    </form>
+  </div>
+</div>
+</div>
+{% endblock search %}
+
+  <!-- People block -->
+  <section class="page-section" id="portfolio" style="padding-top: 30px;">
+    <div class="bg-light container">
+      <div class="row">
+        {% for person in people %}
+            <div class="col-md-4 col-sm-6 portfolio-itemp" style="padding-top: 40px; padding-left:80px;">
+          <a class="portfolio-link" href="{{ person.image }}">
+
+            {% if person.image != None %}
+            <img class="img-fluid" src="{{ person.image }}" alt="">
+            {% else %}
+            <img class="img-fluid" src="https://m.media-amazon.com/images/G/01/IMDbPro/images/default_name._V142442227_UY289_CR46,0,214,317_.png" alt="">
+            {% endif %}
+          </a>
+          <div class="portfolio-caption">
+              <h4><a href="/name/{{person.id}}">{{ person.name }} </a></h4>
+              {% if person.rating != None%}
+                  <span style="color: #012758">&#9733 {{ person.rating }}</span>
+              {%endif%}
+          </div>
+        </div>
+              
+        {% endfor %}
+      </div>
+
+
+<!-- Pagination -->
+
+    <div class="justify-content-md-center py-3" id="page1" align="center">
+        {% if query == '' %}
+          {% if page != 1 %}
+          <a href='?page={{ page -1 }}&query={{query}}'> << </a>
+          {% endif %}
+            {% if (page >= (number + 1)//2 + 1) %}
+              <a href="?page=1&query={{query}}">1</a>
+              <span>
+                  ...
+              </span>
+              {% if page < page_count - number//2 %}
+                  {% for page_num in range(page + 1 - (number + 1)//2, page + number + 1 - (number + 1)//2 )%}
+                      {% if page_num == page %}
+                          <span>
+                          {{ page_num }}
+                              </span>
+                      {% else %}
+                          <a href='?page={{ page_num }}&query={{query}}'>{{ page_num }}</a>
+                      {% endif %}
+                  {% endfor %}
+                  <span>
+                  ...
+                  </span>
+                  <a href='?page={{ page_count }}&query={{query}}' >{{ page_count }}</a>
+              {% else %}
+                  {% for page_num in range(page_count - number + 1, page_count + 1) %}
+                      {% if page_num == page %}
+                          <span >
+                              {{ page_num }}
+                              </span>
+                      {% else %}
+                          <a href='?page={{ page_num }}&query={{query}}'>{{ page_num }}</a>
+                      {% endif %}
+                  {% endfor %}
+              {% endif %}
+          {% else %}
+              {% for page_num in range(1, number + 1) %}
+                  {% if page_num == page %}
+                      <span >
+                          {{ page_num }}
+                              </span>
+                  {% else %}
+                      <a href='?page={{ page_num }}&query={{query}}'>{{ page_num }}</a>
+                  {% endif %}
+              {% endfor %}
+              <span>
+              ...
+              </span>
+              <a href='?page={{ page_count }}&query={{query}}'>{{ page_count }}</a>
+          {% endif %}
+          {% if page != page_count %}
+              <a href='?page={{ page + 1 }}&query={{query}}' > >> </a>
+          {% endif %}
+      {% else %}
+          {% for page_num in range(1, page_count) %}
+              {% if page_num == page %}
+        <span >{{ page_num }}</span>
+              {% else %}
+                  <a href='?page={{ page_num }}&query={{ query }}'>{{ page_num }}</a>
+              {% endif %}
+          {% endfor %}
+      {% endif %}
+    </div>
+   </div>
+    </div>
+  </section>
+{% endblock content %}

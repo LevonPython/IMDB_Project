@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>fa-solid-900
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>CrowdFilm {% block title %}{% endblock title %}</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/vendor/bootstrap/css/bootstrap.min.css?q=1280549780" rel="stylesheet">
+  <link href="/static/css/popup.css?q=1280549780" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="/static/vendor/fontawesome-free/css/all.min.css?q=1280549780" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+
+  <!-- Custom styles for this template -->
+  <link href="/static/css/agency.min.css?q=1280549780" rel="stylesheet">
+
+  <!-- Other -->
+  <link href="/static/css/summary.css?q=1280549780" rel="stylesheet">
+  <link href="/static/css/popup.css?q=1280549780" rel="stylesheet">
+  <link href="/static/css/main.css?q=1280549780" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+
+<body id="page-top" background="/static/img/background_image.jpg" style="background-size: 100%, 100%;">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand js-scroll-trigger" href="/home">CrowdFilm</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav text-uppercase ml-auto">
+          <li>
+            <a class="nav-link js-scroll-trigger" href="/movies">Movies</a>
+          </li>
+          <li>
+            <a class="nav-link js-scroll-trigger" href="/celebs">Celebs</a>
+          </li>
+          <li class="nav-link js-scroll-trigger nav-dropdown">
+            <div class="portfolio-item">
+              <a onclick="myFunction()" class="navbar-nav ml-auto">GENRES <i class="large material-icons">arrow_drop_down</i></a>
+              <div id="myDropdown" class="nav-dropdown-content">
+                <a style="color: #fec503; padding: 6px; text-align: right;" href="/genres/Action">Action</a>
+                <a style="color: #fec503; padding: 6px; text-align: right;" href="/genres/Biography">Biography</a>
+                <a style="color: #fec503; padding: 6px; text-align: right;" href="/genres/Comedy">Comedy</a>
+                <a style="color: #fec503; padding: 6px; text-align: right;" href="/genres/Drama">Drama</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <a class="nav-link js-scroll-trigger" href="/oscars">Oscars</a>
+          </li>
+          <li>
+            <a class="nav-link js-scroll-trigger" href="/about">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="masthead" style="background: transparent; background-repeat: no-repeat;">
+    {% block header %}{% endblock header %}
+  </header>
+
+  {% block content %}{% block search %}{% endblock search %}{% endblock content%}
+
+  <!-- Footer -->
+  <footer class="footer" style="background: #001133">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4">
+          <span class="copyright" style="color: #cce6ff">Copyright &copy; CrowdFilm 2019</span>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-inline social-buttons">
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="/static/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Contact form JavaScript -->
+  <script src="/static/js/jqBootstrapValidation.js"></script>
+  <script src="/static/js/contact_me.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="/static/js/agency.min.js"></script>
+
+  <!-- Other -->
+  <script src="/static/js/popup.js"></script>
+  <script src="/static/js/extention/choices.js"></script>
+  <script src="/static/js/dropdown.js"></script>
+
+</body>
+
+</html>
